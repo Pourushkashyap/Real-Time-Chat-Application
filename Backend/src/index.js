@@ -6,9 +6,10 @@ import messagerouter from './router/message_route.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { app,io,server } from './utils/socket.js';
+import path from "path";
 
 
-
+const __dirname = path.resolve();
 dotenv.config();
 
 console.log(process.env.PORT);
@@ -28,8 +29,13 @@ app.use(cookieParser());
 app.use("/api/user",router);
 app.use("/api/message",messagerouter)
 
+if(process.env.NODE_ENV ==="production"){
+    app.use(express.static(path.join(__dirname,"../frontend/dist")))
+}
 
-
+app.get("*",(req,res) =>{
+    res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
+})
 
 connectDB()
 .then(() =>
