@@ -29,13 +29,14 @@ app.use(cookieParser());
 app.use("/api/user",router);
 app.use("/api/message",messagerouter)
 
-if(process.env.NODE_ENV ==="production"){
-    app.use(express.static(path.join(__dirname,"../frontend/dist")))
-}
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../Frontend/dist")));
 
-app.get("*",(req,res) =>{
-    res.sendFile(path.join(__dirname,"../frontend","dist","index.html"));
-})
+  // ✅ Use app.use instead of app.get for wildcard
+  app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
+  });
+}
 
 connectDB()
 .then(() =>
