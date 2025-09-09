@@ -17,9 +17,13 @@ const port = process.env.PORT;
 
 
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true,
-}))
+  origin: [
+    "http://localhost:5173", 
+    "https://real-time-chat-application-6cwv.onrender.com" 
+  ],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
