@@ -6,7 +6,8 @@ import {io} from "socket.io-client"
 const BASE_URL =
   import.meta.env.VITE_MODE === "development"
     ? "http://localhost:5000"
-    : "https://real-time-chat-application-6cwv.onrender.com/api";
+    : "https://devgroup-xjzm.onrender.com";
+
 
 export const useAuthStore = create((set,get) =>({
     authUser: null,
