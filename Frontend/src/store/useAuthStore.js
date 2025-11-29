@@ -97,24 +97,37 @@ export const useAuthStore = create((set,get) =>({
        }
 
     },
-    connectSocket: () =>{
-        const {authUser,socket} = get()
-        if(!authUser || socket?.connected) return;
-          
-        
-      const newsocket = io(BASE_URL,{
-        query:{
-            userId:authUser._id,
-        }
-      });
-    //   socket.connect()
-      set({socket:newsocket});
+    connectSocket: () => {
+  const { authUser, socket } = get();
+  if (!authUser || socket?.connected) return;
 
-      newsocket.on("getonlineUsers",(userIds) =>{
-        console.log("userIds is: ",userIds)
-             set({onlineUsers:userIds})
-      })
+  console.log("Connecting socket for:", authUser._id);
+
+  const newsocket = io(BASE_URL, {
+    withCredentials: true,
+    transports: ["websocket"],        // 🔥 REQUIRED on Render
+    path: "/socket.io",               // 🔥 Safe default
+    query: {
+      userId: authUser._id,
     },
+  });
+
+  newsocket.on("connect", () => {
+    console.log("🔥 Socket connected:", newsocket.id);
+  });
+
+  newsocket.on("connect_error", (err) => {
+    console.log("❌ Socket connect error:", err.message);
+  });
+
+  newsocket.on("getonlineUsers", (userIds) => {
+    console.log("userIds:", userIds);
+    set({ onlineUsers: userIds });
+  });
+
+  set({ socket: newsocket });
+},
+
     disconnectsocket : () =>{
         
         if(get().socket?.connected) get().socket.disconnect();
