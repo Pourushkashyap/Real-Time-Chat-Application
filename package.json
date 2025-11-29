@@ -1,16 +1,1 @@
-{
-  "name": "real-time-chat-application",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "build": "npm install --prefix Backend && npm install --prefix Frontend && npm run build --prefix Frontend",
-    "start": "concurrently \"npm run start --prefix Backend\" \"npm run dev --prefix Frontend\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "concurrently": "^9.2.1"
-  }
-}
+{}
