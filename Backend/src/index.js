@@ -18,8 +18,7 @@ const port = process.env.PORT;
 
 app.use(cors({
   origin: [
-    "http://localhost:5173", 
-    "https://real-time-chat-application-6cwv.onrender.com" 
+    "http://localhost:5173",  
   ],
   credentials: true,
 }));
@@ -33,14 +32,7 @@ app.use(cookieParser());
 app.use("/api/user",router);
 app.use("/api/message",messagerouter)
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../Frontend/dist")));
 
-  // ✅ Use app.use instead of app.get for wildcard
-  app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
-  });
-}
 
 connectDB()
 .then(() =>
