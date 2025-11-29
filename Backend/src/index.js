@@ -17,7 +17,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://devgroup-xjzm.onrender.com",
-    "https://real-time-chat-application.vercel.app"
+    "https://real-time-chat-application-bice.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
