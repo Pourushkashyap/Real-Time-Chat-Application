@@ -9,15 +9,15 @@ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",
-      "https://real-time-chat-application-bice.vercel.app",    // Vercel frontend
-      "https://devgroup-xjzm.onrender.com"                     // Backend domain
+      "https://real-time-chat-application-bice.vercel.app",
+      "https://devgroup-xjzm.onrender.com",
     ],
     credentials: true,
-    methods: ["GET", "POST"],
   },
-  transports: ["websocket"],
-  path: "/socket.io"
+  transports: ["websocket", "polling"],   // ❤️ FIX
+  path: "/socket.io",
 });
+
 
 
 const usersocketMap = {};
