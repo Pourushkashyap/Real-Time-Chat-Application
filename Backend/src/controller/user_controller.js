@@ -78,19 +78,20 @@ const createuser = asynchandler(async (req, res) =>{
 
     const {accesstoken,refreshtoken} = await generateaccessandrefreshtoken(newuser._id);
 
-    const accessoptions = {
-        httpOnly:true,
-        secure:process.env.NODE_ENV === "production",
-        sameSite:"lax",
-        maxAge : 24 * 60 * 60 * 1000
-    }
+   const accessoptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",   // 🔥 REQUIRED for cross-site cookies
+  maxAge: 24 * 60 * 60 * 1000,
+};
 
-    const refreshoptions = {
-        httpOnly:true,
-        secure:process.env.NODE_ENV === "production",
-        sameSite:"lax",
-        maxAge : 7 * 24 * 60 * 60 * 1000
-    }
+const refreshoptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",   // 🔥 REQUIRED
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
+
 
     res.status(201)
     .cookie("accesstoken",accesstoken,accessoptions)
@@ -122,18 +123,19 @@ const loginuser = asynchandler(async (req, res) =>{
     const {accesstoken, refreshtoken} = await generateaccessandrefreshtoken(user._id);
 
     const accessoptions = {
-        httpOnly:true,
-        secure:process.env.NODE_ENV === "production",
-        sameSite:"lax",
-        maxAge : 15 * 60 * 1000
-    }
-    
-    const refreshoptions = {
-        httpOnly:true,
-        secure:process.env.NODE_ENV === "production",
-        sameSite:"lax",
-        maxAge : 7 *24 * 60 * 60 * 1000
-    }
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",   // 🔥 REQUIRED for cross-site cookies
+  maxAge: 24 * 60 * 60 * 1000,
+};
+
+const refreshoptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",   // 🔥 REQUIRED
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+};
+
 
     return res
     .status(200)
@@ -149,12 +151,12 @@ const logout = asynchandler(async (req, res) =>{
         $set:{refreshtoken:""}
      })
 
-     const options = {
-        httpOnly:true,
-        secure:process.env.NODE_ENV === "production",
-        samesite:"lax",
-       
-    }
+   const options = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+};
+
      
    res.clearCookie("accesstoken",options);
    res.clearCookie("refreshtoken",options);
