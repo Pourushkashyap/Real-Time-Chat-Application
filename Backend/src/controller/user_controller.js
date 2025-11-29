@@ -163,27 +163,28 @@ const logout = asynchandler(async (req, res) =>{
    return res.status(200).json(new Apiresponse(200,null,"user logged out successfully"));
 })
 
-const updateprofile = asynchandler(async (req, res) =>{
-    const user =await  User.findById(req.user.id);
-      if (!user) {
-        throw new Apierror(404, "User not found");
+const updateprofile = asynchandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    throw new Apierror(404, "User not found");
+  }
+
+  if (req.file) {
+    const upload = await uploadoncloudinary(req.file.buffer); // 🔥 buffer instead of path
+
+    if (!upload) {
+      throw new Apierror(500, "Avatar upload to cloudinary failed");
     }
 
-    if(req.file?.path){
-        const upload =await  uploadoncloudinary(req.file.path)
-        if(!upload){
-            throw new Apierror(404, "Avatar upload to cloudinary failed")
-        }
-        user.avatar = upload.secure_url;
-        await user.save();
-    }
-    else{
-        throw new Apierror(400,"image not get from user");
-    }
-     res
-      .status(200)
-      .json(new Apiresponse(200, user, "Profile updated successfully"));
-})
+    user.avatar = upload.secure_url;
+    await user.save();
+  } else {
+    throw new Apierror(400, "No image file received");
+  }
+
+  res.status(200).json(new Apiresponse(200, user, "Profile updated successfully"));
+});
+
 
 
 export {createuser,loginuser,logout,updateprofile};
