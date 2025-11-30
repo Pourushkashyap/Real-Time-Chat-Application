@@ -12,16 +12,18 @@ dotenv.config();
 const __dirname = path.resolve();
 const port = process.env.PORT || 5000;
 
-// ✅ FIXED CORS — WORKS FOR Render + Postman + Frontend
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://devgroup-xjzm.onrender.com",
-    "https://real-time-chat-application-bice.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://real-time-chat-application-bice.vercel.app",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
