@@ -106,9 +106,12 @@ export const useAuthStore = create((set,get) =>({
 const newsocket = io(BASE_URL, {
   withCredentials: true,
   transports: ["polling", "websocket"],
-  path: "/socket.io",
-  query: { userId: authUser._id }
+  path: "/socket.io/",   // 👈 MATCH BACKEND PATH EXACTLY
+  query: {
+    userId: authUser._id
+  }
 });
+
 
 
 
