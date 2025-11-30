@@ -10,12 +10,14 @@ const io = new Server(server, {
     origin: [
       "http://localhost:5173",
       "https://real-time-chat-application-bice.vercel.app",
+      "https://devgroup-xjzm.onrender.com",
     ],
     credentials: true,
   },
-  transports: ["websocket", "polling"],
-  path: "/socket.io/",
+  transports: ["polling", "websocket"],
+  path: "/socket.io",   // ✔️ FIXED — NO TRAILING SLASH
 });
+
 
 const usersocketMap = {};
 
