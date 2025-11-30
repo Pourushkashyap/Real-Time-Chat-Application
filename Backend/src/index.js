@@ -17,14 +17,15 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://real-time-chat-application-bice.vercel.app",
+      "https://devgroup-xjzm.onrender.com",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
-app.options("/*", cors());
-
+// ❌ REMOVE THIS — THIS IS THE BUG
+// app.options("/*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
