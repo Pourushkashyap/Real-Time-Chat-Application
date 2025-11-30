@@ -104,12 +104,12 @@ export const useAuthStore = create((set,get) =>({
   console.log("Connecting socket for:", authUser._id);
 
   const newsocket = io(BASE_URL, {
-  withCredentials: true,
-  transports: ["websocket", "polling"],   // ❤️ FIX
-  path: "/socket.io",
-  query: {
-    userId: authUser._id,
-  },
+       withCredentials: true,
+       transports: ["websocket", "polling"],   // ❤️ FIX
+       path: "/socket.io/",
+       query: {
+          userId: authUser._id,
+       },
 });
 
 

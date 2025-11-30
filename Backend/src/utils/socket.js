@@ -15,7 +15,7 @@ const io = new Server(server, {
     credentials: true,
   },
   transports: ["websocket", "polling"],   // ❤️ FIX
-  path: "/socket.io",
+  path: "/socket.io/",
 });
 
 
